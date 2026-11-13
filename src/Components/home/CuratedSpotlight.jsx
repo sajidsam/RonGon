@@ -24,11 +24,7 @@ const CuratedSpotlight = () => {
         {/* Section Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#72383D]">
-              <Sparkles className="w-3.5 h-3.5 text-[#AC9C8D]" />
-              <span>Women Collection Showcase</span>
-            </div>
-            <h2 className="text-xl sm:text-3xl font-bold font-serif-luxury text-[#322D29] mt-1">
+            <h2 className="text-xl sm:text-3xl font-bold font-serif-luxury text-[#322D29]">
               Festive Heritage Spotlight
             </h2>
             <p className="text-xs sm:text-sm text-[#AC9C8D] mt-1">

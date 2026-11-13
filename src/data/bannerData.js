@@ -1,7 +1,7 @@
-import banner1 from "../assets/banner.png";
-import banner2 from "../assets/banner2.png";
-import banner3 from "../assets/banner3.png";
-import banner4 from "../assets/banner4.png";
+import banner1 from "../assets/banner.webp";
+import banner2 from "../assets/banner2.webp";
+import banner3 from "../assets/banner3.webp";
+import banner4 from "../assets/banner4.webp";
 
 /**
  * High-Speed Local Hero Slider Dataset

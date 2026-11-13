@@ -10,15 +10,12 @@ const CustomerReviews = () => {
   return (
     <section id="reviews-section" className="py-12 sm:py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-10">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#72383D]">
-            Client Testimonials
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-bold font-serif-luxury text-[#322D29] mt-1">
-            Loved by Connoisseurs Across Bangladesh
+        {/* Section Header - Clean Centered Uppercase on Mobile matching Image 3 */}
+        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+          <h2 className="text-base sm:text-2xl lg:text-3xl font-brand font-bold text-[#322D29] tracking-[0.2em] uppercase">
+            CLIENT TESTIMONIALS
           </h2>
-          <p className="text-xs sm:text-sm text-[#AC9C8D] mt-2">
+          <p className="hidden sm:block text-xs sm:text-sm text-[#AC9C8D] mt-2">
             Real feedback from women who chose Rongon for their weddings, Eid, and special occasions
           </p>
         </div>

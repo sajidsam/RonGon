@@ -60,7 +60,7 @@ const ProductCard = ({ product }) => {
         <div>
           {/* Subcategory & Rating */}
           <div className="flex items-center justify-between text-[10px] sm:text-[11px] mb-1 gap-1">
-            <span className="font-semibold uppercase tracking-wider text-[#AC9C8D] truncate">
+            <span className="font-brand font-semibold uppercase tracking-widest text-[#AC9C8D] truncate text-[9px] sm:text-[10px]">
               {product.subCategory || product.category}
             </span>
             <div className="flex items-center gap-0.5 text-[#72383D] font-semibold text-[10px] shrink-0">
@@ -69,10 +69,10 @@ const ProductCard = ({ product }) => {
             </div>
           </div>
 
-          {/* Title */}
+          {/* Title - Brand Luxury Font */}
           <h3
             onClick={() => setQuickViewProduct(product)}
-            className="text-xs sm:text-[13px] font-medium text-[#322D29] line-clamp-1 hover:text-[#72383D] cursor-pointer transition-colors leading-snug"
+            className="font-serif-luxury text-[13px] sm:text-[14px] font-medium text-[#322D29] line-clamp-1 hover:text-[#72383D] cursor-pointer transition-colors leading-snug tracking-normal"
             title={product.name}
           >
             {product.name}
@@ -93,23 +93,26 @@ const ProductCard = ({ product }) => {
             )}
           </div>
 
-          {/* Compact Minimalist Action Buttons */}
-          <div className="grid grid-cols-2 gap-1 sm:gap-1.5">
+          {/* Action Buttons: Left compact Cart icon button, Right prominent "Order Now" button */}
+          <div className="flex items-center gap-1.5 w-full">
             <button
               type="button"
+              aria-label="Add to Cart"
+              title="Add to Cart"
               onClick={handleAddToCart}
-              className="py-1.5 px-1 text-[10px] sm:text-[11px] font-medium rounded-md text-[#322D29] bg-[#EFE9E1] hover:bg-[#322D29] hover:text-[#EFE9E1] transition-all duration-200 flex items-center justify-center gap-1 active:scale-95"
+              className="h-8 w-8 rounded-lg text-[#322D29] bg-[#EFE9E1] hover:bg-[#322D29] hover:text-[#EFE9E1] transition-all duration-200 flex items-center justify-center active:scale-95 border border-[#E8DFD3]/80 cursor-pointer shrink-0"
             >
-              <ShoppingBag className="w-3 h-3 shrink-0" />
-              <span className="truncate">Add to Cart</span>
+              <ShoppingBag className="w-3.5 h-3.5 shrink-0" />
             </button>
             <button
               type="button"
+              aria-label="Order Now"
+              title="Order Now"
               onClick={handleOrderNow}
-              className="py-1.5 px-1 text-[10px] sm:text-[11px] font-semibold rounded-md bg-[#72383D] text-[#EFE9E1] hover:bg-[#322D29] transition-all duration-200 flex items-center justify-center gap-1 active:scale-95 shadow-2xs"
+              className="h-8 flex-1 min-w-0 py-1 px-1.5 sm:px-2 text-[10px] sm:text-[11px] font-semibold rounded-lg bg-[#72383D] text-[#EFE9E1] hover:bg-[#582A2E] transition-all duration-200 flex items-center justify-center gap-1 active:scale-95 shadow-2xs cursor-pointer whitespace-nowrap"
             >
               <Zap className="w-3 h-3 shrink-0 fill-current" />
-              <span className="truncate">Order Now</span>
+              <span className="font-semibold tracking-wide">Order Now</span>
             </button>
           </div>
         </div>

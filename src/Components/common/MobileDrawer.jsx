@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { Link } from "react-router";
 import { useShop } from "../../Context/ShopContext";
-import { X, Search, Phone, Sparkles, MessageCircle, ChevronRight, MapPin } from "lucide-react";
+import { X, Search, Phone, Sparkles, MessageCircle, ChevronRight, MapPin, User } from "lucide-react";
 import logo from "@/assets/logo.png";
 
 const MobileDrawer = () => {
@@ -136,16 +137,17 @@ const MobileDrawer = () => {
           {/* Quick Links */}
           <div className="pt-2 border-t border-[#D1C7BD]/30">
             <h3 className="text-xs font-bold uppercase tracking-wider text-[#AC9C8D] mb-2 px-1">
-              Customer Support
+              My Account & Concierge
             </h3>
             <div className="space-y-1 text-xs">
-              <a
-                href="#order-tracking"
+              <Link
+                to="/profile"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center gap-2.5 px-3 py-2 text-[#322D29] hover:text-[#72383D] rounded-xl hover:bg-[#EFE9E1]"
+                className="flex items-center gap-2.5 px-3 py-2 text-[#72383D] font-bold rounded-xl bg-[#EFE9E1]"
               >
-                <span>📦 Track Your Order</span>
-              </a>
+                <User className="w-4 h-4 text-[#72383D]" />
+                <span>My Profile & Orders</span>
+              </Link>
               <a
                 href="https://wa.me/+8801970085954"
                 target="_blank"

@@ -26,17 +26,13 @@ const BagsRowSection = () => {
   return (
     <section id="bags-showcase" className="bg-[#FAF7F2] py-10 sm:py-14 border-y border-[#E8DFD3]/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 sm:mb-8">
-          <div>
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#72383D]/10 text-[#72383D] text-[11px] font-semibold tracking-wider uppercase mb-1.5">
-              <Sparkles className="w-3 h-3 text-[#72383D]" />
-              <span>Women's Bag Collection</span>
-            </div>
-            <h2 className="text-xl sm:text-2xl lg:text-3xl font-brand font-bold text-[#322D29] tracking-tight">
-              Artisanal Handbags & Crossbody
+        {/* Header - Centered uppercase heading on mobile matching Image 3 */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6 sm:mb-8 text-center sm:text-left">
+          <div className="w-full sm:w-auto">
+            <h2 className="text-base sm:text-2xl lg:text-3xl font-brand font-bold text-[#322D29] tracking-[0.2em] uppercase">
+              ARTISANAL HANDBAGS & CROSSBODY
             </h2>
-            <p className="text-xs sm:text-sm text-[#7D7063] mt-1 max-w-xl">
+            <p className="hidden sm:block text-xs sm:text-sm text-[#7D7063] mt-1 max-w-xl">
               Trendy commuter shoulder bags, croissant chic crossbodies, and premium retro totes curated for modern elegance.
             </p>
           </div>
@@ -44,17 +40,19 @@ const BagsRowSection = () => {
           <button
             type="button"
             onClick={handleViewAllBags}
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#72383D] hover:text-[#55272B] transition-colors self-start sm:self-auto group"
+            className="hidden sm:inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#72383D] hover:text-[#55272B] transition-colors self-start sm:self-auto group"
           >
             <span>View All Bags ({bagProducts.length > 0 ? "900+" : ""})</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
 
-        {/* 2-Row Responsive Grid */}
+        {/* 2-Row Responsive Grid: 2 cols on mobile (8 items), 4 cols on tablet (8 items), 5 cols on desktop (10 items) */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-5">
-          {displayBags.map((bag) => (
-            <ProductCard key={bag.id} product={bag} />
+          {displayBags.map((bag, idx) => (
+            <div key={bag.id} className={idx >= 8 ? "hidden lg:block" : ""}>
+              <ProductCard product={bag} />
+            </div>
           ))}
         </div>
       </div>

@@ -30,6 +30,10 @@
   font-family: 'Cinzel', serif;
 }
 
+.font-futura {
+  font-family: 'Futura PT', 'Futura', 'Jost', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
 /* Completely hide all horizontal scrollbars and scroller wheels */
 *::-webkit-scrollbar:horizontal {
   display: none !important;
@@ -83,4 +87,21 @@
 
 .animate-pulse-subtle {
   animation: pulseSubtle 2.5s infinite ease-in-out;
+}
+
+/* Continuous Marquee / Ticker for Mobile Announcement Bar */
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-ticker {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: ticker 20s linear infinite;
+  will-change: transform;
+}
+
+.animate-ticker:hover {
+  animation-play-state: paused;
 }

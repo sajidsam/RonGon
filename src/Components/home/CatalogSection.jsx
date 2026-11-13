@@ -1,10 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ProductCard from "../common/ProductCard";
 import { useShop } from "../../Context/ShopContext";
 import { fetchProducts } from "../../services/api";
-import { Sparkles, ArrowUpDown, ChevronLeft, ChevronRight, Loader2, X } from "lucide-react";
+import { Sparkles, ArrowUpDown, ChevronLeft, ChevronRight, Loader2, X, ChevronDown, Check } from "lucide-react";
 
 const PRODUCTS_PER_PAGE = 15;
+
+const SORT_OPTIONS = [
+  { value: "featured", label: "Featured First" },
+  { value: "price-low", label: "Price: Low to High" },
+  { value: "price-high", label: "Price: High to Low" },
+  { value: "rating", label: "Highest Rated" },
+  { value: "newest", label: "Newest Arrival" },
+];
 
 const CatalogSection = () => {
   const {
@@ -15,6 +23,8 @@ const CatalogSection = () => {
     setSearchQuery,
   } = useShop();
   const [sortBy, setSortBy] = useState("featured");
+  const [isSortOpen, setIsSortOpen] = useState(false);
+  const sortRef = useRef(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [catalogData, setCatalogData] = useState({
     products: [],
@@ -22,6 +32,26 @@ const CatalogSection = () => {
     totalPages: 1,
   });
   const [isFetching, setIsFetching] = useState(false);
+
+  // Close sort menu on click outside or Escape key
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (sortRef.current && !sortRef.current.contains(e.target)) {
+        setIsSortOpen(false);
+      }
+    };
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setIsSortOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   // Reset to page 1 whenever filter, sort, or search changes
   useEffect(() => {
@@ -92,42 +122,70 @@ const CatalogSection = () => {
   return (
     <section id="catalog-section" className="py-12 sm:py-16 bg-[#EFE9E1]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
-          <div>
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#72383D]">
-              <Sparkles className="w-3.5 h-3.5 text-[#AC9C8D]" />
-              <span>Full Boutique Catalogue</span>
-            </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-serif-luxury text-[#322D29] mt-1">
-              Rongon Women Collection
+        {/* Section Header - Centered uppercase heading on mobile matching Image 3 */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 text-center md:text-left">
+          <div className="w-full md:w-auto">
+            <h2 className="text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold font-brand tracking-[0.2em] uppercase text-[#322D29]">
+              RONGON SIGNATURE COLLECTION
             </h2>
-            <p className="text-xs sm:text-sm text-[#AC9C8D] mt-1 max-w-xl">
+            <p className="hidden md:block text-xs sm:text-sm text-[#AC9C8D] mt-1 max-w-xl">
               Showing exclusive Salwar Kameez, designer cotton sarees, single kameez, and contemporary fusion wear.
             </p>
           </div>
 
-          {/* Sort Controls */}
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 px-3.5 py-2 bg-white rounded-xl text-xs text-[#322D29] shadow-xs">
-              <ArrowUpDown className="w-3.5 h-3.5 text-[#72383D]" />
-              <label htmlFor="sort-select" className="font-medium text-[#AC9C8D]">
-                Sort:
-              </label>
-              <select
-                id="sort-select"
-                aria-label="Sort products"
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="bg-transparent font-semibold text-[#322D29] focus:outline-none cursor-pointer"
+          {/* Custom Modern Sort Dropdown */}
+          <div className="relative self-center md:self-auto" ref={sortRef}>
+            <button
+              type="button"
+              onClick={() => setIsSortOpen((prev) => !prev)}
+              aria-expanded={isSortOpen}
+              aria-haspopup="listbox"
+              aria-label="Sort products"
+              className="flex items-center gap-2 px-3.5 py-2 bg-white rounded-xl text-xs text-[#322D29] shadow-xs border border-[#E8DFD3]/60 hover:border-[#72383D]/40 transition-all cursor-pointer select-none"
+            >
+              <ArrowUpDown className="w-3.5 h-3.5 text-[#72383D] shrink-0" />
+              <span className="font-medium text-[#AC9C8D]">Sort:</span>
+              <span className="font-semibold text-[#322D29]">
+                {SORT_OPTIONS.find((opt) => opt.value === sortBy)?.label || "Featured First"}
+              </span>
+              <ChevronDown
+                className={`w-3.5 h-3.5 text-[#AC9C8D] transition-transform duration-200 shrink-0 ${
+                  isSortOpen ? "rotate-180 text-[#72383D]" : ""
+                }`}
+              />
+            </button>
+
+            {/* Modern Floating Menu with smooth fade & checkmark */}
+            {isSortOpen && (
+              <div
+                role="listbox"
+                className="absolute right-0 top-full mt-2 w-48 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-[#E8DFD3]/80 p-1.5 z-40 animate-fade-in"
               >
-                <option value="featured">Featured First</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
-                <option value="rating">Highest Rated</option>
-                <option value="newest">Newest Arrival</option>
-              </select>
-            </div>
+                {SORT_OPTIONS.map((opt) => {
+                  const isSelected = sortBy === opt.value;
+                  return (
+                    <button
+                      key={opt.value}
+                      type="button"
+                      role="option"
+                      aria-selected={isSelected}
+                      onClick={() => {
+                        setSortBy(opt.value);
+                        setIsSortOpen(false);
+                      }}
+                      className={`w-full flex items-center justify-between px-3 py-2 text-xs font-medium rounded-xl transition-all duration-150 cursor-pointer ${
+                        isSelected
+                          ? "bg-[#72383D]/10 text-[#72383D] font-bold"
+                          : "text-[#322D29] hover:bg-[#FAF7F2] hover:text-[#72383D]"
+                      }`}
+                    >
+                      <span>{opt.label}</span>
+                      {isSelected && <Check className="w-3.5 h-3.5 text-[#72383D] shrink-0" />}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
 

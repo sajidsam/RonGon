@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useShop } from "../../Context/ShopContext";
-import { ChevronLeft, ChevronRight, ArrowRight, Sparkles } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { HERO_SLIDES } from "../../data/bannerData";
-import banner1 from "@/assets/banner.png";
-import banner2 from "@/assets/banner2.png";
-import banner3 from "@/assets/banner3.png";
-import banner4 from "@/assets/banner4.png";
+import banner1 from "@/assets/banner.webp";
+import banner2 from "@/assets/banner2.webp";
+import banner3 from "@/assets/banner3.webp";
+import banner4 from "@/assets/banner4.webp";
 
 const BANNER_ASSETS = {
   "slide-1": banner1,
@@ -71,7 +71,7 @@ const HeroSlider = () => {
 
   return (
     <div
-      className="relative w-full h-[40vh] sm:h-[48vh] md:h-[65vh] lg:h-[75vh] overflow-hidden group bg-[#322D29] select-none"
+      className="relative w-full h-[42vh] sm:h-[55vh] md:h-[70vh] lg:h-[86vh] xl:h-[90vh] overflow-hidden group bg-[#241715] select-none"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -81,100 +81,52 @@ const HeroSlider = () => {
         const isActive = index === currentSlide;
         const bannerKey = slide.bannerId || slide.id;
         const slideImg = BANNER_ASSETS[bannerKey] || slide.image;
-        const isSlide4 = bannerKey === "slide-4";
-        const isSlide3 = bannerKey === "slide-3";
-        const isSlide2 = bannerKey === "slide-2";
 
         return (
           <div
             key={slide.id || slide.bannerId || index}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${isActive ? "opacity-100 z-10 pointer-events-auto" : "opacity-0 z-0 pointer-events-none"
-              }`}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              isActive ? "opacity-100 z-10 pointer-events-auto" : "opacity-0 z-0 pointer-events-none"
+            }`}
           >
-            {/* Background Image with Zoom animation */}
-            <div className={`absolute inset-0 overflow-hidden ${isSlide4 ? "bg-[#3D280B]" : isSlide3 ? "bg-[#0C1A30]" : isSlide2 ? "bg-[#241715]" : "bg-[#72383D]"}`}>
+            {/* Background Image: Tall & expansive on desktop, centered & top-anchored */}
+            <div className="absolute inset-0 overflow-hidden bg-[#241715]">
               <img
                 src={slideImg}
                 alt={slide.title}
-                className={`w-full h-full object-cover transition-transform duration-7000 ease-out ${
-                  slide.isCustomBanner || BANNER_ASSETS[bannerKey]
-                    ? "object-[80%_center] sm:object-[75%_center] lg:object-right"
-                    : "object-center"
-                } ${isActive ? "scale-103" : "scale-100"}`}
+                className={`w-full h-full object-cover object-[center_top] sm:object-[75%_top] lg:object-right-top transition-transform duration-7000 ease-out ${
+                  isActive ? "scale-103" : "scale-100"
+                }`}
               />
-              {/* Luxury Gradient Overlay */}
-              {isSlide4 ? (
-                <>
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#241708]/95 via-[#241708]/65 to-transparent sm:from-[#241708]/90 sm:via-[#241708]/40 lg:from-[#241708]/80 lg:via-transparent lg:to-transparent" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#241708]/60 via-transparent to-transparent sm:hidden" />
-                </>
-              ) : isSlide3 ? (
-                <>
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#0C1A30]/95 via-[#0C1A30]/65 to-transparent sm:from-[#0C1A30]/90 sm:via-[#0C1A30]/40 lg:from-[#0C1A30]/80 lg:via-transparent lg:to-transparent" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0C1A30]/60 via-transparent to-transparent sm:hidden" />
-                </>
-              ) : isSlide2 ? (
-                <>
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#241715]/95 via-[#241715]/65 to-transparent sm:from-[#241715]/90 sm:via-[#241715]/40 lg:from-[#241715]/80 lg:via-transparent lg:to-transparent" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#241715]/60 via-transparent to-transparent sm:hidden" />
-                </>
-              ) : (
-                <>
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#72383D]/95 via-[#72383D]/60 to-transparent sm:from-[#72383D]/90 sm:via-[#72383D]/40 lg:from-[#72383D]/80 lg:via-transparent lg:to-transparent" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#322D29]/50 via-transparent to-transparent sm:hidden" />
-                </>
-              )}
+
+              {/* Scrim: Balanced dark backdrop for centered mobile text, elegant left-scrim for desktop */}
+              <div className="absolute inset-0 bg-black/45 sm:hidden" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 sm:hidden" />
+              <div className="hidden sm:block absolute inset-0 bg-gradient-to-r from-black/75 via-black/35 to-transparent" />
             </div>
 
-            {/* Slide Content */}
-            <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 flex items-center">
-              <div className="max-w-[260px] sm:max-w-sm md:max-w-md lg:max-w-xl text-[#EFE9E1] space-y-2.5 sm:space-y-1.5 md:space-y-3 lg:space-y-4">
-                {/* Tag - Hidden on mobile */}
-                <div
-                  className={`hidden sm:inline-flex items-center gap-1 sm:gap-1.5 px-2.5 py-0.5 md:px-3 md:py-1 rounded-full ${
-                    isSlide4 ? "bg-[#A37012]" : "bg-[#72383D]"
-                  } text-[#EFE9E1] text-[10px] md:text-xs font-semibold tracking-wider uppercase`}
-                >
-                  <Sparkles className="w-3 h-3 md:w-3.5 md:h-3.5 text-[#D1C7BD]" />
-                  <span>{slide.tag}</span>
-                </div>
-
-                {/* Subtitle - Hidden on mobile */}
-                <p className="hidden sm:block text-[10px] md:text-xs lg:text-sm font-medium tracking-wider sm:tracking-widest uppercase text-[#D1C7BD] font-brand">
-                  {slide.subtitle}
-                </p>
-
-                {/* Title */}
-                {/* Mobile: 2 layers / lines */}
-                <div className="block sm:hidden">
-                  <h1 className="text-xl font-bold font-serif-luxury leading-[1.2] text-[#EFE9E1] drop-shadow-md">
-                    <span className="block">{slide.mobileTitleLine1 || slide.title}</span>
-                    <span className="block text-[#EFE9E1]">{slide.mobileTitleLine2 || ""}</span>
-                  </h1>
-                </div>
-
-                {/* Tablet & Desktop: single/fluid title */}
-                <h1 className="hidden sm:block text-base md:text-2xl lg:text-5xl xl:text-6xl font-bold font-serif-luxury leading-snug sm:leading-tight text-[#EFE9E1] drop-shadow-md">
+            {/* Banner Content: Mobile & Tab stay in current bottom position; Desktop moves to left & vertically center-aligned */}
+            <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-12 lg:px-20 flex items-end lg:items-center justify-center lg:justify-start pb-12 sm:pb-16 md:pb-20 lg:pb-0">
+              <div className="flex flex-col items-center lg:items-start text-center lg:text-left text-white space-y-1.5 sm:space-y-3 max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl mx-auto lg:mx-0">
+                {/* Main Title - Mobile font 12px, Tablet/Desktop prominent & font-brand */}
+                <h1 className="text-[12px] sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl font-brand font-semibold uppercase tracking-[0.12em] sm:tracking-[0.18em] leading-snug sm:leading-[1.2] text-[#EFE9E1] drop-shadow-md">
                   {slide.title}
                 </h1>
 
-                {/* Description - Hidden on mobile */}
-                <p className="hidden sm:block text-[11px] md:text-xs lg:text-base text-[#D1C7BD] line-clamp-2 md:line-clamp-3 leading-relaxed max-w-sm md:max-w-md lg:max-w-lg">
-                  {slide.description}
+                {/* Subtext - Mobile font 10px, Tablet/Desktop responsive */}
+                <p className="text-[10px] sm:text-xs md:text-sm font-light uppercase tracking-[0.16em] text-[#EFE9E1]/90 max-w-xs sm:max-w-none">
+                  {slide.subtitle || "New festive collection"}
                 </p>
 
-                {/* CTA Button */}
-                <div className="pt-0.5 sm:pt-2 md:pt-3">
+                {/* Aarong Signature Sharp Button - Compact width on phone version */}
+                <div className="pt-0.5 sm:pt-2">
                   <button
                     type="button"
                     onClick={() => handleCtaClick(slide.categorySlug)}
-                    className={`inline-flex items-center gap-1.5 sm:gap-2 px-4 py-2 sm:px-4 sm:py-2 md:px-6 md:py-2.5 lg:px-8 lg:py-3.5 ${
-                      isSlide4 ? "bg-[#A37012] hover:bg-[#785108]" : "bg-[#72383D] hover:bg-[#322D29]"
-                    } text-[#EFE9E1] text-xs sm:text-xs md:text-sm font-bold rounded-lg sm:rounded-xl transition-all duration-300 shadow-md sm:shadow-lg active:scale-95`}
+                    className="inline-flex items-center justify-center gap-1.5 px-3.5 py-1 sm:px-6 sm:py-2.5 lg:px-7 lg:py-3 bg-white hover:bg-[#72383D] text-[#322D29] hover:text-white text-[9px] sm:text-[10px] lg:text-xs font-brand font-bold uppercase tracking-[0.15em] sm:tracking-[0.2em] rounded-none transition-all duration-300 shadow-md hover:shadow-xl active:scale-98 cursor-pointer group/btn"
                   >
-                    <span className="sm:hidden">{slide.mobileButtonText || "Shop Now"}</span>
-                    <span className="hidden sm:inline">{slide.buttonText}</span>
-                    <ArrowRight className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                    <span>{slide.mobileButtonText || slide.buttonText || "SHOP NOW"}</span>
+                    <ArrowRight className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 transition-transform duration-300 group-hover/btn:translate-x-1" />
                   </button>
                 </div>
               </div>
@@ -183,12 +135,12 @@ const HeroSlider = () => {
         );
       })}
 
-      {/* Prev / Next Navigation Chevrons - Desktop only (hidden on small/mid devices to prevent overlapping text) */}
+      {/* Aarong-Style Chevron Arrows (Translucent Circular Glass Buttons) */}
       <button
         type="button"
         onClick={handlePrev}
         aria-label="Previous Slide"
-        className="hidden lg:flex absolute left-4 lg:left-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-[#322D29]/50 hover:bg-[#322D29]/90 text-[#EFE9E1] items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100 hover:scale-105 active:scale-95"
+        className="hidden sm:flex absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-black/30 hover:bg-black/70 text-white backdrop-blur-xs items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100 hover:scale-105 active:scale-95 cursor-pointer"
       >
         <ChevronLeft className="w-5 h-5 lg:w-6 lg:h-6" />
       </button>
@@ -197,23 +149,23 @@ const HeroSlider = () => {
         type="button"
         onClick={handleNext}
         aria-label="Next Slide"
-        className="hidden lg:flex absolute right-4 lg:right-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-[#322D29]/50 hover:bg-[#322D29]/90 text-[#EFE9E1] items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100 hover:scale-105 active:scale-95"
+        className="hidden sm:flex absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-black/30 hover:bg-black/70 text-white backdrop-blur-xs items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100 hover:scale-105 active:scale-95 cursor-pointer"
       >
         <ChevronRight className="w-5 h-5 lg:w-6 lg:h-6" />
       </button>
 
-      {/* Dot Indicators */}
-      <div className="absolute bottom-2.5 sm:bottom-4 md:bottom-6 inset-x-0 z-20 flex justify-center gap-1.5 sm:gap-2">
+      {/* Aarong-Style Horizontal Dash Slider Indicators */}
+      <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 inset-x-0 z-20 flex justify-center items-center gap-2">
         {slides.map((_, i) => (
           <button
             key={i}
             type="button"
             onClick={() => setCurrentSlide(i)}
             aria-label={`Go to slide ${i + 1}`}
-            className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
+            className={`h-1 rounded-full transition-all duration-500 cursor-pointer ${
               i === currentSlide
-                ? (slides[i]?.bannerId === "slide-4" || slides[i]?.id === "slide-4" ? "w-6 sm:w-8 bg-[#A37012]" : "w-6 sm:w-8 bg-[#72383D]")
-                : "w-1.5 sm:w-2 bg-[#D9D9D9]/60 hover:bg-[#EFE9E1]"
+                ? "w-8 sm:w-12 bg-white"
+                : "w-3.5 sm:w-6 bg-white/40 hover:bg-white/80"
             }`}
           />
         ))}

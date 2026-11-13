@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router";
 import logoWhite from "@/assets/logoWhite.png";
 import PayWithBadges from "../common/PayWithBadges";
 import {
@@ -8,6 +9,7 @@ import {
   Clock,
   Send,
   MessageCircle,
+  User,
 } from "lucide-react";
 
 const Footer = () => {
@@ -115,16 +117,25 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Col 3: Customer Care */}
+          {/* Col 3: Customer Care & Account */}
           <div>
             <h3 className="text-[#EFE9E1] font-bold text-sm uppercase tracking-wider mb-5 border-l-2 border-[#72383D] pl-3">
-              Customer Care
+              Customer Care & Account
             </h3>
             <ul className="space-y-2.5 text-xs sm:text-sm text-[#D1C7BD]">
               <li>
-                <a href="#track-order" className="text-[#EFE9E1] font-semibold hover:underline transition-colors">
-                  Track Your Order
-                </a>
+                <Link
+                  to="/profile"
+                  className="text-[#EFE9E1] font-bold hover:text-[#72383D] transition-colors flex items-center gap-1.5"
+                >
+                  <User className="w-3.5 h-3.5 text-[#AC9C8D]" />
+                  <span>My Profile & Orders</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/profile" className="hover:text-[#EFE9E1] transition-colors">
+                  Track Your Order & Invoices
+                </Link>
               </li>
               <li>
                 <a href="#exchange" className="hover:text-[#EFE9E1] transition-colors">

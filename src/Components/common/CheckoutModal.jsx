@@ -36,14 +36,33 @@ const CheckoutModal = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const [customer, setCustomer] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    address: "",
-    city: "Dhaka",
-    postalCode: "1207",
-    notes: "",
+  const [customer, setCustomer] = useState(() => {
+    try {
+      const saved = localStorage.getItem("rongon_user_profile");
+      if (saved) {
+        const p = JSON.parse(saved);
+        return {
+          name: p.fullName || "",
+          phone: p.phone || "",
+          email: p.email || "",
+          address: p.address || "",
+          city: p.district || "Dhaka",
+          postalCode: p.postalCode || "1207",
+          notes: p.deliveryNotes || "",
+        };
+      }
+    } catch {
+      // fallback
+    }
+    return {
+      name: "",
+      phone: "",
+      email: "",
+      address: "",
+      city: "Dhaka",
+      postalCode: "1207",
+      notes: "",
+    };
   });
 
   if (!isCheckoutOpen) return null;
