@@ -89,41 +89,39 @@ const HeroSlider = () => {
               isActive ? "opacity-100 z-10 pointer-events-auto" : "opacity-0 z-0 pointer-events-none"
             }`}
           >
-            {/* Background Image: Tall & expansive on desktop, centered & top-anchored */}
+            {/* Background Image: models anchored to right so left side is open for text */}
             <div className="absolute inset-0 overflow-hidden bg-[#241715]">
               <img
                 src={slideImg}
                 alt={slide.title}
-                className={`w-full h-full object-cover object-[center_top] sm:object-[75%_top] lg:object-right-top transition-transform duration-7000 ease-out ${
+                className={`w-full h-full object-cover object-[80%_top] sm:object-[75%_top] lg:object-right-top transition-transform duration-7000 ease-out ${
                   isActive ? "scale-103" : "scale-100"
                 }`}
               />
 
-              {/* Scrim: Balanced dark backdrop for centered mobile text, elegant left-scrim for desktop */}
-              <div className="absolute inset-0 bg-black/45 sm:hidden" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 sm:hidden" />
-              <div className="hidden sm:block absolute inset-0 bg-gradient-to-r from-black/75 via-black/35 to-transparent" />
+              {/* Editorial Gradient Scrim for crisp left-aligned readability */}
+              <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/35 to-transparent sm:from-black/75 sm:via-black/35 sm:to-transparent" />
             </div>
 
-            {/* Banner Content: Mobile & Tab stay in current bottom position; Desktop moves to left & vertically center-aligned */}
-            <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-12 lg:px-20 flex items-end lg:items-center justify-center lg:justify-start pb-12 sm:pb-16 md:pb-20 lg:pb-0">
-              <div className="flex flex-col items-center lg:items-start text-center lg:text-left text-white space-y-1.5 sm:space-y-3 max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl mx-auto lg:mx-0">
-                {/* Main Title - Mobile font 12px, Tablet/Desktop prominent & font-brand */}
-                <h1 className="text-[12px] sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl font-brand font-semibold uppercase tracking-[0.12em] sm:tracking-[0.18em] leading-snug sm:leading-[1.2] text-[#EFE9E1] drop-shadow-md">
+            {/* Aarong-Style Content: Left-aligned and vertically centered across all screens */}
+            <div className="relative h-full max-w-7xl mx-auto px-5 sm:px-12 lg:px-20 flex items-center justify-start text-left">
+              <div className="flex flex-col items-start text-left text-white space-y-2 sm:space-y-3 md:space-y-3.5 max-w-[68%] sm:max-w-md md:max-w-lg lg:max-w-2xl">
+                {/* Main Title - Proportional font size on mobile, matching desktop format */}
+                <h1 className="text-xs sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl font-brand font-semibold uppercase tracking-[0.14em] sm:tracking-[0.18em] leading-snug sm:leading-[1.2] text-[#EFE9E1] drop-shadow-md">
                   {slide.title}
                 </h1>
 
-                {/* Subtext - Mobile font 10px, Tablet/Desktop responsive */}
-                <p className="text-[10px] sm:text-xs md:text-sm font-light uppercase tracking-[0.16em] text-[#EFE9E1]/90 max-w-xs sm:max-w-none">
+                {/* Subtext - Proportional subtext matching desktop format */}
+                <p className="text-[9px] sm:text-xs md:text-sm font-light uppercase tracking-[0.14em] sm:tracking-[0.15em] text-[#EFE9E1]/90 max-w-xs sm:max-w-none">
                   {slide.subtitle || "New festive collection"}
                 </p>
 
-                {/* Aarong Signature Sharp Button - Compact width on phone version */}
-                <div className="pt-0.5 sm:pt-2">
+                {/* Aarong Signature Sharp Button - Scaled down for mobile, exact desktop format */}
+                <div className="pt-1 sm:pt-2">
                   <button
                     type="button"
                     onClick={() => handleCtaClick(slide.categorySlug)}
-                    className="inline-flex items-center justify-center gap-1.5 px-3.5 py-1 sm:px-6 sm:py-2.5 lg:px-7 lg:py-3 bg-white hover:bg-[#72383D] text-[#322D29] hover:text-white text-[9px] sm:text-[10px] lg:text-xs font-brand font-bold uppercase tracking-[0.15em] sm:tracking-[0.2em] rounded-none transition-all duration-300 shadow-md hover:shadow-xl active:scale-98 cursor-pointer group/btn"
+                    className="inline-flex items-center justify-center gap-1 sm:gap-1.5 px-3.5 py-1 sm:px-6 sm:py-2.5 lg:px-7 lg:py-3 bg-white hover:bg-[#72383D] text-[#322D29] hover:text-white text-[9px] sm:text-[10px] lg:text-xs font-brand font-bold uppercase tracking-[0.16em] sm:tracking-[0.2em] rounded-none transition-all duration-300 shadow-md hover:shadow-xl active:scale-98 cursor-pointer group/btn"
                   >
                     <span>{slide.mobileButtonText || slide.buttonText || "SHOP NOW"}</span>
                     <ArrowRight className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 transition-transform duration-300 group-hover/btn:translate-x-1" />

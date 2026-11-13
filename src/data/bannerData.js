@@ -11,9 +11,9 @@ export const HERO_SLIDES = [
   {
     id: "slide-1",
     bannerId: "slide-1",
-    title: "Festive & Contemporary Elegance",
+    title: "Festive & Modern Elegance",
     subtitle: "Rongon Signature Edition 2026",
-    mobileTitleLine1: "Festive & Contemporary",
+    mobileTitleLine1: "Festive & Modern",
     mobileTitleLine2: "Elegance",
     mobileButtonText: "Shop Now",
     description:
